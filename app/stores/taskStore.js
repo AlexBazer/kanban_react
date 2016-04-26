@@ -1,6 +1,6 @@
-import uuid from 'node-uuid';
-import alt from '../libs/alt';
-import TaskActions from '../atcions/taskActions.js';
+import uuid from 'uuid';
+import alt from '../libs/alt.js';
+import TaskActions from '../actions/taskActions.js';
 
 class TaskStore {
     constructor() {
@@ -14,8 +14,8 @@ class TaskStore {
         task.id = uuid.v4();
 
         this.setState({
-            tasks: tasks.concat(taks);
-        })
+            tasks: tasks.concat(task)
+        });
     }
     update(updatedTask){
         const tasks = this.tasks.map(task => {
@@ -26,11 +26,11 @@ class TaskStore {
         });
         this.setState({tasks});
     }
-    delete(id){
+    remove(id){
         this.setState({
-            tasks: this.tasks.filter(taks => node.id != id)
+            tasks: this.tasks.filter(task => task.id != id)
         });
     }
 }
 
-export default ald.createStore(TaskStore, 'TaskStore');
+export default alt.createStore(TaskStore, 'TaskStore');
