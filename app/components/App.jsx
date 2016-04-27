@@ -11,7 +11,7 @@ import connect from '../decorators/connect.js';
 @connect(TaskStore)
 export default class App extends React.Component {
     render(){
-        const tasks = this.props.tasks;
+        const tasks = this.state.tasks;
         return (
             <div>
                 <button

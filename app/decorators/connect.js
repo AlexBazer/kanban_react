@@ -1,8 +1,9 @@
 import React from 'react';
 import autobind from 'autobind-decorator';
 
+
 const connect = function(Component, store){
-    return class Connect extends React.Component{
+    return class Connect extends Component{
         constructor(props){
             super(props);
 
@@ -17,12 +18,9 @@ const connect = function(Component, store){
         storeChanged(){
             this.setState(store.getState());
         }
-
-        render() {
-            return <Component {...this.props} {...this.state} />;
-        }
     };
 };
+
 
 export default (store) => {
     return (target) => connect(target, store);
