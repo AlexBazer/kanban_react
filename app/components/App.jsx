@@ -5,34 +5,20 @@ import autobind from 'autobind-decorator';
 import TaskActions from '../actions/taskActions.js';
 import TaskStore from '../stores/taskStore.js';
 
+import connect from '../decorators/connect.js';
+
+
+@connect(TaskStore)
 export default class App extends React.Component {
-    constructor(props){
-        super(props);
-
-        this.state = TaskStore.getState();
-    }
-
-    componentDidMount(){
-        TaskStore.listen(this.storeChanged);
-    }
-
-    componentWillUnmount(){
-        TaskStore.unlisten(this.storeChanged);
-    }
-
-    @autobind
-    storeChanged(state){
-        this.setState(state);
-    }
-
     render(){
+        const tasks = this.props.tasks;
         return (
             <div>
                 <button
                     className="add-task" onClick={this.addTask}
                 >+</button>
                 <Tasks
-                    tasks={this.state.tasks} onEdit={this.editTask}
+                    tasks={tasks} onEdit={this.editTask}
                     onRemove={this.removeTask}
                 />
             </div>
