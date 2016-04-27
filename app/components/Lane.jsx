@@ -18,15 +18,11 @@ export default class Lane extends React.Component {
                     <div className="lane-name">{lane.name}</div>
                 </div>
                 <Tasks
-                    tasks={tasks} onEdit={this.editTask}
+                    tasks={TaskStore.getTasksById(lane.tasks)} onEdit={this.editTask}
                     onRemove={this.removeTask}
                 />
             </div>
         );
-    }
-
-    addTask(){
-        TaskActions.create({content:'New task 4'});
     }
 
     editTask(id, content){
@@ -36,8 +32,19 @@ export default class Lane extends React.Component {
         TaskActions.update({id, content});
     }
 
-    removeTask(id, event){
+    addTask(){
+        const laneId = this.props.lane.id;
+        const task = TaskActions.create({content:'Just new one!'});
+
+        LaneActions.attachToLane({noteId: note.id, laneId});
+    }
+
+    removeTask(taskId, event){
         event.stopPropagation();
-        TaskActions.remove(id);
+
+        const laneId = this.props.lane.id;
+
+        LaneActions.detachFromLane({laneId, taskId});
+        TaskActions.remove(taskId);
     }
 }

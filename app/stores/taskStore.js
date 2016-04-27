@@ -7,7 +7,12 @@ class TaskStore {
         this.bindActions(TaskActions);
 
         this.tasks = [];
+
+        this.exportPublicMethods({
+            getNotesByIds: this.getNotesByIds.bind(this)
+        })
     }
+
     create(task){
         const tasks = this.tasks;
 
@@ -16,7 +21,9 @@ class TaskStore {
         this.setState({
             tasks: tasks.concat(task)
         });
+        return task;
     }
+
     update(updatedTask){
         const tasks = this.tasks.map(task => {
             if(task.id === updatedTask.id){
@@ -26,10 +33,19 @@ class TaskStore {
         });
         this.setState({tasks});
     }
+
     remove(id){
         this.setState({
             tasks: this.tasks.filter(task => task.id != id)
         });
+    }
+
+    getTasksById(ids){
+        return ids.reduce((tasks, id)=>{
+            return tasks.concat(this.tasks.filter(task=>{
+                return task.id === id;
+            }))
+        }, []);
     }
 }
 
