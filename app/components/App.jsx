@@ -1,43 +1,30 @@
 import React from 'react';
 import Tasks from './Tasks.jsx';
+import Lanes from './Lanes.jsx';
+
 import autobind from 'autobind-decorator';
 
 import TaskActions from '../actions/taskActions.js';
 import TaskStore from '../stores/taskStore.js';
 
+import LaneActions from '../actions/laneActions.js';
+import LaneStore from '../stores/laneStore.js';
+
 import connect from '../decorators/connect.js';
 
 
-@connect(TaskStore)
+@connect(LaneStore)
 export default class App extends React.Component {
     render(){
-        const tasks = this.state.tasks;
         return (
             <div>
-                <button
-                    className="add-task" onClick={this.addTask}
-                >+</button>
-                <Tasks
-                    tasks={tasks} onEdit={this.editTask}
-                    onRemove={this.removeTask}
-                />
+                <button className="add-lane" onClick={this.addLane}>+</button>
+                <Lanes lanes={this.state.lanes}/>
             </div>
-        );
+        )
     }
 
-    addTask(){
-        TaskActions.create({content:'New task 4'});
-    }
-
-    editTask(id, content){
-        if (!content.trim()){
-            return;
-        }
-        TaskActions.update({id, content});
-    }
-
-    removeTask(id, event){
-        event.stopPropagation();
-        TaskActions.remove(id);
+    addLane(){
+        LaneActions.create({name: 'New Lane in here!'});
     }
 }
