@@ -1,6 +1,7 @@
 
 import React from 'react';
 import Tasks from './Tasks.jsx';
+import Editable from './Editable.jsx';
 import connect from '../decorators/connect.js';
 import TaskActions from '../actions/taskActions.js';
 import TaskStore from '../stores/taskStore.js';
@@ -18,9 +19,19 @@ export default class Lane extends React.Component {
                     <div className="lane-add-task">
                         <button onClick={this.addTask}>+</button>
                     </div>
-                    <div className="lane-name">{lane.name}</div>
+                    <Editable
+                        className="lane-name"
+                        editing={lane.editing}
+                        value={lane.name}
+                        onEdit={this.editLaneName}
+                        onClick={this.activateLaneEdit}
+                    />
+                    <div className="lane-delete">
+                        <button onClick={this.removeLane}>x</button>
+                    </div>
                 </div>
                 <Tasks
+                    onValueClick={this.activateTaskEdit}
                     tasks={TaskStore.getTasksById(lane.tasks)} onEdit={this.editTask}
                     onRemove={this.removeTask}
                 />
@@ -29,11 +40,38 @@ export default class Lane extends React.Component {
     }
 
     @autobind
+    activateLaneEdit(){
+        const laneId = this.props.lane.id;
+        LaneActions.update({id: laneId, editing: true});
+    }
+
+    @autobind
+    editLaneName(name){
+        const laneId = this.props.lane.id;
+        if (!name.trim()){
+            LaneActions.update({id: laneId, editing: false});
+        }
+        LaneActions.update({id: laneId, name, editing: false});
+    }
+
+    @autobind
+    removeLane(){
+        const laneId = this.props.lane.id;
+        LaneActions.remove(laneId);
+    }
+
+    @autobind
+    activateTaskEdit(id){
+        TaskActions.update({id, editing:true});
+    }
+
+    @autobind
     editTask(id, content){
         if (!content.trim()){
+            TaskActions.update({id, editing: false});
             return;
         }
-        TaskActions.update({id, content});
+        TaskActions.update({id, content, editing: false});
     }
 
     @autobind
