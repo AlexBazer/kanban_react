@@ -4,7 +4,12 @@ import Editable from './Editable.jsx';
 
 export default ({tasks, onValueClick, onEdit, onRemove}) => (
     <ul className="tasks">{tasks.map(task =>
-        <Task className="task" id={task.id} key={task.id}>
+        <Task
+            className="task"
+            id={task.id}
+            key={task.id}
+            onMove={({sourceId, targetId}) => console.log(`source: ${sourceId}, target: ${targetId}`)}
+        >
             <Editable
                 editing={task.editing}
                 value={task.content}
