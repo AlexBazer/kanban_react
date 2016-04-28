@@ -1,78 +1,23 @@
 import React from 'react';
-import autobind from 'autobind-decorator';
 
+import {DragSource} from 'react-dnd';
+import ItemTypes from '../constants/itemTypes.js';
+
+const taskSource = {
+    beginDrag(props){
+        console.log('Beginning dragging', props);
+        return {};
+    }
+}
+
+@DragSource(ItemTypes.TASK, taskSource, (connect) => ({
+    connectDragSource: connect.dragSource()
+}))
 export default class Task extends React.Component{
-    constructor(props){
-        super(props);
-
-        this.state = {
-            editing: false
-        }
-
-    }
-
     render(){
-        if(this.state.editing){
-            return this.renderEdit();
-        }
-        return this.renderView();
-    }
-
-    @autobind
-    renderEdit(){
-        return (
-            <input type="text"
-            ref={
-                element => element?element.selectionStart = this.props.content.length: null
-            }
-            autoFocus={true}
-            defaultValue={this.props.content}
-            onBlur={this.finishEdit}
-            onKeyPress={this.checkEnter} />
+        const {connectDragSource, id, onMove, ...props} = this.props;
+        return connectDragSource(
+            <li {...this.props}>{this.props.children}</li>
         );
-    }
-
-    @autobind
-    renderView(){
-        return (
-            <div onClick={this.edit}>
-                <span className="content">{this.props.content}</span>
-                {this.props.onRemove? this.renderRemove(): null}
-            </div>
-        );
-    }
-
-    @autobind
-    renderRemove(){
-        return (
-            <button
-                className="remove-task"
-                onClick={this.props.onRemove}
-            >X</button>
-        );
-    }
-
-    @autobind
-    edit(){
-        this.setState({
-            editing: true
-        });
-    }
-
-    @autobind
-    checkEnter(event){
-        if(event.key === 'Enter'){
-            this.finishEdit(event);
-        }
-    }
-
-    @autobind
-    finishEdit(event){
-        const value = event.target.value;
-        if (this.props.onEdit){
-            this.props.onEdit(value);
-
-            this.setState({editing: false});
-        }
     }
 }
