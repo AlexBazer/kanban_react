@@ -56,8 +56,9 @@ export default class Lane extends React.Component {
 
     @autobind
     removeLane(){
-        const laneId = this.props.lane.id;
-        LaneActions.remove(laneId);
+        const lane = this.props.lane;
+        TaskActions.removeTasksById(lane.tasks);
+        LaneActions.remove(lane.id);
     }
 
     @autobind

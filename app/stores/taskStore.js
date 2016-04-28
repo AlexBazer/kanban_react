@@ -40,6 +40,13 @@ class TaskStore {
         });
     }
 
+    removeTasksById(ids){
+        this.setState({
+            tasks: this.tasks.filter(task => !ids.includes(task.id))
+        })
+    }
+
+
     getTasksById(ids){
         return ids.reduce((tasks, id)=>{
             return tasks.concat(this.tasks.filter(task=>{
