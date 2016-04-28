@@ -33,8 +33,8 @@ class LaneStore{
                     tasks:[...lane.tasks, taskId]
                 });
             }
-            this.setState({lanes});
         })
+        this.setState({lanes});
     }
 
     detachFromLane({laneId, taskId}) {
@@ -46,6 +46,7 @@ class LaneStore{
                 tasks: lane.tasks.filter(task => task != taskId)
             });
         });
+        this.setState({lanes});
     }
 }
 

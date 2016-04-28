@@ -9,7 +9,7 @@ class TaskStore {
         this.tasks = [];
 
         this.exportPublicMethods({
-            getNotesByIds: this.getNotesByIds.bind(this)
+            getTasksById: this.getTasksById.bind(this)
         })
     }
 

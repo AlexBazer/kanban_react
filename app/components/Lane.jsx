@@ -1,8 +1,11 @@
+
 import React from 'react';
 import Tasks from './Tasks.jsx';
 import connect from '../decorators/connect.js';
 import TaskActions from '../actions/taskActions.js';
 import TaskStore from '../stores/taskStore.js';
+import LaneActions from '../actions/laneActions.js';
+import autobind from 'autobind-decorator';
 
 @connect(TaskStore)
 export default class Lane extends React.Component {
@@ -25,6 +28,7 @@ export default class Lane extends React.Component {
         );
     }
 
+    @autobind
     editTask(id, content){
         if (!content.trim()){
             return;
@@ -32,13 +36,15 @@ export default class Lane extends React.Component {
         TaskActions.update({id, content});
     }
 
+    @autobind
     addTask(){
         const laneId = this.props.lane.id;
         const task = TaskActions.create({content:'Just new one!'});
 
-        LaneActions.attachToLane({noteId: note.id, laneId});
+        LaneActions.attachToLane({taskId: task.id, laneId});
     }
 
+    @autobind
     removeTask(taskId, event){
         event.stopPropagation();
 

@@ -2,7 +2,6 @@ import React from 'react';
 import Lane from './Lane.jsx';
 
 export default ({lanes}) => {
-    console.log(lanes);
     return (
         <div className="lanes">
             {lanes.map(lane => {
