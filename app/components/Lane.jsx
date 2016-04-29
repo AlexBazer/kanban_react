@@ -8,12 +8,32 @@ import TaskStore from '../stores/taskStore.js';
 import LaneActions from '../actions/laneActions.js';
 import autobind from 'autobind-decorator';
 
+import {DropTarget} from 'react-dnd';
+import ItemTypes from '../constants/itemTypes.js';
+
+const taskTarget = {
+    hover(targetProps, monitor){
+        const sourceProps = monitor.getItem();
+        const sourceId = sourceProps.id;
+        if (!targetProps.lane.tasks.length){
+            console.log('Attach to lane!');
+            LaneActions.attachToLane({
+                laneId: targetProps.lane.id,
+                taskId: sourceId
+            });
+        }
+    }
+};
+
+@DropTarget(ItemTypes.TASK, taskTarget, (connect) => ({
+    connectDropTarget: connect.dropTarget()
+}))
 @connect(TaskStore)
 export default class Lane extends React.Component {
     render(){
-        const {lane, ...props} = this.props;
+        const {connectDropTarget, lane, ...props} = this.props;
         const tasks = this.state.tasks;
-        return (
+        return connectDropTarget(
             <div {...props}>
                 <div className="lane-header">
                     <div className="lane-add-task">

@@ -40,8 +40,11 @@ class LaneStore{
     attachToLane({laneId, taskId}){
         const lanes = this.lanes.map(lane => {
             if (lane.id != laneId){
+                // remove task from old lane
+                lane.tasks = lane.tasks.filter(task => task != taskId)
                 return lane;
             }
+
             if (lane.tasks.includes(taskId)){
                 console.warn('Already in the lane', lanes);
             } else {
@@ -66,6 +69,7 @@ class LaneStore{
     }
 
     move({sourceId, targetId}) {
+        console.log('MOVE');
         var lanes = this.lanes;
         const sourceLane = this.lanes.reduce((result, lane) =>
             lane.tasks.includes(sourceId)?lane:result,

@@ -34,8 +34,10 @@ const taskTarget = {
 }))
 export default class Task extends React.Component{
     render(){
-        const {connectDragSource, connectDropTarget, isDragging, id, onMove, ...props} = this.props;
-        return connectDragSource(connectDropTarget(
+        const {connectDragSource, connectDropTarget, isDragging, id, onMove, editing, ...props} = this.props;
+        const dragSource = editing?pass => pass:connectDragSource;
+
+        return dragSource(connectDropTarget(
             <li
                 style={{opacity: isDragging?0 : 1}}
                 {...this.props}

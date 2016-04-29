@@ -10,6 +10,7 @@ export default ({tasks, onValueClick, onEdit, onRemove}) => (
             id={task.id}
             key={task.id}
             onMove={LaneActions.move}
+            editing={task.editing}
         >
             <Editable
                 editing={task.editing}
