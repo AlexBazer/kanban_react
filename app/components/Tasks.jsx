@@ -1,6 +1,7 @@
 import React from 'react';
 import Task from './Task.jsx';
 import Editable from './Editable.jsx';
+import LaneActions from '../actions/laneActions.js';
 
 export default ({tasks, onValueClick, onEdit, onRemove}) => (
     <ul className="tasks">{tasks.map(task =>
@@ -8,7 +9,7 @@ export default ({tasks, onValueClick, onEdit, onRemove}) => (
             className="task"
             id={task.id}
             key={task.id}
-            onMove={({sourceId, targetId}) => console.log(`source: ${sourceId}, target: ${targetId}`)}
+            onMove={LaneActions.move}
         >
             <Editable
                 editing={task.editing}

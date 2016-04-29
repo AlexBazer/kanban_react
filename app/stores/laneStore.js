@@ -36,7 +36,7 @@ class LaneStore{
             lanes: this.lanes.filter(lane => lane.id != id)
         });
     }
-    
+
     attachToLane({laneId, taskId}){
         const lanes = this.lanes.map(lane => {
             if (lane.id != laneId){
@@ -62,6 +62,37 @@ class LaneStore{
                 tasks: lane.tasks.filter(task => task != taskId)
             });
         });
+        this.setState({lanes});
+    }
+
+    move({sourceId, targetId}) {
+        var lanes = this.lanes;
+        const sourceLane = this.lanes.reduce((result, lane) =>
+            lane.tasks.includes(sourceId)?lane:result,
+            undefined
+        );
+        const targetLane = this.lanes.reduce((result, lane) =>
+            lane.tasks.includes(targetId)?lane:result,
+            undefined
+        );
+        if (sourceLane === targetLane){
+            // Substitute 2 ids
+            sourceLane.tasks = sourceLane.tasks.map(task => {
+                if (task === sourceId) return targetId
+                else if(task === targetId) return sourceId
+                else return task
+            })
+        } else {
+            // Remove id from sourceLane tasks
+            sourceLane.tasks = sourceLane.tasks.filter(
+                task => task !== sourceId
+            )
+            // Add to targetLane tasks
+            targetLane.tasks = targetLane.tasks.reduce((result, task) => {
+                if (task === targetId) return result.concat([sourceId, targetId])
+                else return result.concat(task)
+            }, [])
+        }
         this.setState({lanes});
     }
 }

@@ -17,7 +17,7 @@ const taskTarget = {
         const targetId = targetProps.id;
         const sourceProps = monitor.getItem();
         const sourceId = sourceProps.id;
-        console.log(sourceId, targetId);
+        // console.log(sourceId, targetId);
         if(sourceId !== targetId){
             targetProps.onMove({sourceId, targetId});
         }
@@ -25,17 +25,21 @@ const taskTarget = {
     }
 };
 
-@DragSource(ItemTypes.TASK, taskSource, (connect) => ({
-    connectDragSource: connect.dragSource()
+@DragSource(ItemTypes.TASK, taskSource, (connect, monitor) => ({
+    connectDragSource: connect.dragSource(),
+    isDragging: monitor.isDragging()
 }))
 @DropTarget(ItemTypes.TASK, taskTarget, (connect) => ({
     connectDropTarget: connect.dropTarget()
 }))
 export default class Task extends React.Component{
     render(){
-        const {connectDragSource, connectDropTarget, id, onMove, ...props} = this.props;
+        const {connectDragSource, connectDropTarget, isDragging, id, onMove, ...props} = this.props;
         return connectDragSource(connectDropTarget(
-            <li {...this.props}>{this.props.children}</li>
+            <li
+                style={{opacity: isDragging?0 : 1}}
+                {...this.props}
+            >{this.props.children}</li>
         ));
     }
 }
