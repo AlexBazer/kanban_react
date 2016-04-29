@@ -39,8 +39,9 @@ export default class Task extends React.Component{
 
         return dragSource(connectDropTarget(
             <li
-                style={{opacity: isDragging?0 : 1}}
-                {...this.props}
+                hoho={isDragging}
+                style={{opacity: isDragging? 0 : 1}}
+                {...props}
             >{this.props.children}</li>
         ));
     }
