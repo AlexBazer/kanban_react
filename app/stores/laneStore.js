@@ -3,6 +3,9 @@ import alt from '../libs/alt';
 
 import LaneActions from '../actions/laneActions';
 
+/**
+ * Lane store actions handlers
+ */
 class LaneStore{
     constructor(){
         this.bindActions(LaneActions);
@@ -37,6 +40,10 @@ class LaneStore{
         });
     }
 
+    /**
+     * Add new taskId to lane tasks
+     * Remove this task from old lane id lane was changed
+     */
     attachToLane({laneId, taskId}){
         const lanes = this.lanes.map(lane => {
             if (lane.id != laneId){
@@ -55,7 +62,9 @@ class LaneStore{
         })
         this.setState({lanes});
     }
-
+    /**
+     * Remove task from lane
+     */
     detachFromLane({laneId, taskId}) {
         const lanes = this.lanes.map(lane => {
             if (lane.id != laneId){
@@ -68,6 +77,9 @@ class LaneStore{
         this.setState({lanes});
     }
 
+    /**
+     * Handle task moves in one lane and from one lane to another
+     */
     move({sourceId, targetId}) {
         var lanes = this.lanes;
         const sourceLane = this.lanes.reduce((result, lane) =>

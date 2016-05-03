@@ -2,6 +2,9 @@ import uuid from 'uuid';
 import alt from '../libs/alt.js';
 import TaskActions from '../actions/taskActions.js';
 
+/**
+ * Task store action handlers
+ */
 class TaskStore {
     constructor() {
         this.bindActions(TaskActions);
@@ -40,13 +43,18 @@ class TaskStore {
         });
     }
 
+    /**
+     * Remove tasks by list of tasks ids
+     */
     removeTasksById(ids){
         this.setState({
             tasks: this.tasks.filter(task => !ids.includes(task.id))
         })
     }
 
-
+    /**
+     * Filter tasks by list of tasks ids
+     */
     getTasksById(ids){
         return ids.reduce((tasks, id)=>{
             return tasks.concat(this.tasks.filter(task=>{
