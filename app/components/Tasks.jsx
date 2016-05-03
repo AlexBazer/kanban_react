@@ -3,6 +3,9 @@ import Task from './Task.jsx';
 import Editable from './Editable.jsx';
 import LaneActions from '../actions/laneActions.js';
 
+/**
+ * Simple Tasks component
+ */
 export default ({tasks, onValueClick, onEdit, onRemove}) => (
     <ul className="tasks">{tasks.map(task =>
         <Task

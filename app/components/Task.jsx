@@ -3,6 +3,9 @@ import React from 'react';
 import {DragSource, DropTarget} from 'react-dnd';
 import ItemTypes from '../constants/itemTypes.js';
 
+/**
+ * Drag source contract for task
+ */
 const taskSource = {
     beginDrag(props){
         return {
@@ -14,6 +17,9 @@ const taskSource = {
     }
 }
 
+/**
+ * Drag target contract for task
+ */
 const taskTarget = {
     hover(targetProps, monitor){
         const targetId = targetProps.id;
@@ -26,6 +32,10 @@ const taskTarget = {
     }
 };
 
+/**
+ * Task component
+ * Mounts dragSource and dragTarget
+ */
 @DragSource(ItemTypes.TASK, taskSource, (connect, monitor) => ({
     connectDragSource: connect.dragSource(),
     isDragging: monitor.isDragging()
