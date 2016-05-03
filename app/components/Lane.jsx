@@ -1,4 +1,3 @@
-
 import React from 'react';
 import Tasks from './Tasks.jsx';
 import Editable from './Editable.jsx';
@@ -11,8 +10,12 @@ import autobind from 'autobind-decorator';
 import {DropTarget} from 'react-dnd';
 import ItemTypes from '../constants/itemTypes.js';
 
+/**
+ *   Drag target contract
+ */
 const taskTarget = {
     hover(targetProps, monitor){
+        // Trigger attachToLane action when druged to the empty lane
         const sourceProps = monitor.getItem();
         const sourceId = sourceProps.id;
         if (!targetProps.lane.tasks.length){
@@ -24,6 +27,10 @@ const taskTarget = {
     }
 };
 
+/**
+* Lane component
+* Mount DropTarget and connect Task store 
+*/
 @DropTarget(ItemTypes.TASK, taskTarget, (connect) => ({
     connectDropTarget: connect.dropTarget()
 }))

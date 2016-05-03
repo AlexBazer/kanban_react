@@ -9,8 +9,10 @@ import HTML5Backend from 'react-dnd-html5-backend';
 
 import connect from '../decorators/connect';
 
-// Main app Component
-// Mound DragDropContext and connect LaneStore
+/**
+ * Main app Component
+ * Mount DragDropContext and connect LaneStore
+ */
 @DragDropContext(HTML5Backend)
 @connect(LaneStore)
 export default class App extends React.Component {

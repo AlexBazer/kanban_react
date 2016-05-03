@@ -1,6 +1,9 @@
 import React from 'react';
 import Lane from './Lane.jsx';
 
+/**
+ * Lanes simple component
+ */
 export default ({lanes}) => {
     return (
         <div className="lanes">
