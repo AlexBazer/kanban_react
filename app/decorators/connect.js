@@ -2,6 +2,10 @@ import React from 'react';
 import autobind from 'autobind-decorator';
 
 
+/**
+ * Connect decorator
+ * Bind store to component
+ */
 const connect = function(Component, store){
     return class Connect extends Component{
         constructor(props){
