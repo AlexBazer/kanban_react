@@ -13,6 +13,7 @@ import ItemTypes from '../constants/itemTypes.js';
 
 const taskTarget = {
     hover(targetProps, monitor){
+        console.log(targetProps);
         const sourceProps = monitor.getItem();
         const sourceId = sourceProps.id;
         if (!targetProps.lane.tasks.length){
