@@ -5,10 +5,12 @@ import ItemTypes from '../constants/itemTypes.js';
 
 const taskSource = {
     beginDrag(props){
-        console.log('Beginning dragging', props);
         return {
             id: props.id
         };
+    },
+    isDragging(props, monitor){
+        return props.id === monitor.getItem().id;
     }
 }
 
@@ -17,7 +19,6 @@ const taskTarget = {
         const targetId = targetProps.id;
         const sourceProps = monitor.getItem();
         const sourceId = sourceProps.id;
-        // console.log(sourceId, targetId);
         if(sourceId !== targetId){
             targetProps.onMove({sourceId, targetId});
         }
@@ -36,12 +37,13 @@ export default class Task extends React.Component{
     render(){
         const {connectDragSource, connectDropTarget, isDragging, id, onMove, editing, ...props} = this.props;
         const dragSource = editing?pass => pass:connectDragSource;
-
         return dragSource(connectDropTarget(
             <li
                 style={{opacity: isDragging? 0 : 1}}
                 {...props}
-            >{this.props.children}</li>
+            >
+            {this.props.children}
+            </li>
         ));
     }
 }

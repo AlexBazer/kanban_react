@@ -69,7 +69,6 @@ class LaneStore{
     }
 
     move({sourceId, targetId}) {
-        console.log('MOVE');
         var lanes = this.lanes;
         const sourceLane = this.lanes.reduce((result, lane) =>
             lane.tasks.includes(sourceId)?lane:result,
