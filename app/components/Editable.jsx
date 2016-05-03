@@ -1,6 +1,10 @@
 import React from 'react';
 import autobind from 'autobind-decorator';
 
+/**
+ * Editable Component
+ * Doesn't saves editable state.
+ */
 export default class Editable extends React.Component{
     render(){
         const {value, onEdit, onValueClick, editing, ...props} = this.props;
