@@ -9,6 +9,7 @@ import HTML5Backend from 'react-dnd-html5-backend';
 
 import connect from '../decorators/connect';
 
+import styles from '../css_modules.css';
 /**
  * Main app Component
  * Mount DragDropContext and connect LaneStore
@@ -18,7 +19,7 @@ import connect from '../decorators/connect';
 export default class App extends React.Component {
     render(){
         return (
-            <div>
+            <div className={styles.container}>
                 <button className="add-lane" onClick={this.addLane}>+</button>
                 <Lanes lanes={this.state.lanes}/>
             </div>

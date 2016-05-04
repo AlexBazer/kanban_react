@@ -26,7 +26,7 @@ const common = {
         loaders:[
             {
                 test: /\.css$/,
-                loaders: ['style', 'css'],
+                loader: 'style!css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]',
                 include: PATHS.app
             },
             {
