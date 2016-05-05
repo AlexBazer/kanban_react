@@ -1,0 +1,8 @@
+.row{
+    composes: pure-g from 'pure-css/lib/grids-nr.css';
+}
+
+.col{
+    composes: pure-u, pure-u-1-3 from 'pure-css/lib/grids-nr.css';
+    flex-shrink: 0;
+}

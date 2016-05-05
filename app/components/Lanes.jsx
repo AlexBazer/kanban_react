@@ -1,14 +1,16 @@
 import React from 'react';
 import Lane from './Lane.jsx';
 
+import styles from '../styles/main.css'
+
 /**
  * Lanes simple component
  */
-export default ({lanes}) => {
+export default ({lanes, ...props}) => {
     return (
-        <div className="lanes">
+        <div {...props}>
             {lanes.map(lane => {
-                return (<Lane className="lane" key={lane.id} lane={lane}/>)
+                return (<Lane className={styles.col} key={lane.id} lane={lane}/>)
             })}
         </div>
     );
