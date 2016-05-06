@@ -10,6 +10,8 @@ import autobind from 'autobind-decorator';
 import {DropTarget} from 'react-dnd';
 import ItemTypes from '../constants/itemTypes.js';
 
+import styles from '../styles/main.css';
+
 /**
  *   Drag target contract
  */
@@ -29,7 +31,7 @@ const taskTarget = {
 
 /**
 * Lane component
-* Mount DropTarget and connect Task store 
+* Mount DropTarget and connect Task store
 */
 @DropTarget(ItemTypes.TASK, taskTarget, (connect) => ({
     connectDropTarget: connect.dropTarget()
@@ -41,19 +43,19 @@ export default class Lane extends React.Component {
         const tasks = this.state.tasks;
         return connectDropTarget(
             <div {...props}>
-                <div className="lane-header">
-                    <div className="lane-add-task">
-                        <button onClick={this.addTask}>+</button>
+                <div className={styles.laneHeader}>
+                    <div className={styles.laneDelete}>
+                        <button onClick={this.removeLane}>x</button>
                     </div>
                     <Editable
-                        className="lane-name"
+                        className={styles.laneName}
                         editing={lane.editing}
                         value={lane.name}
                         onEdit={this.editLaneName}
                         onClick={this.activateLaneEdit}
                     />
-                    <div className="lane-delete">
-                        <button onClick={this.removeLane}>x</button>
+                    <div className={styles.laneAddTask}>
+                        <button onClick={this.addTask}>+</button>
                     </div>
                 </div>
                 <Tasks

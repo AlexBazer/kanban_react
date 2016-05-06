@@ -1,8 +1,38 @@
-.row{
-    composes: pure-g from 'pure-css/lib/grids-nr.css';
+.button{
+    composes: pure-button from 'pure-css/lib/buttons.css';
 }
 
-.col{
+.lanes{
+    composes: pure-g from 'pure-css/lib/grids-nr.css';
+    flex-flow: initial;
+}
+
+.lane{
     composes: pure-u, pure-u-1-3 from 'pure-css/lib/grids-nr.css';
     flex-shrink: 0;
+}
+
+.laneHeader{
+    composes:pure-g from 'pure-css/lib/grids-nr.css';
+    background-color: #1f8dd6;
+    padding: 5px 10px;
+    line-height: 40px;
+    border-radius: 4px;
+    position: relative;
+}
+
+.laneDelete{
+
+}
+.laneDelete > button{
+    composes: pure-button, button-error from 'pure-css/lib/buttons.css';
+}
+
+.laneName{
+    composes:pure-u from 'pure-css/lib/grids-nr.css';
+    width: 80%;
+}
+
+.laneAddTask{
+
 }

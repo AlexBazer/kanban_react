@@ -21,7 +21,7 @@ export default class App extends React.Component {
         return (
             <div>
                 <button className="add-lane" onClick={this.addLane}>+</button>
-                <Lanes className={styles.row} lanes={this.state.lanes}/>
+                <Lanes className={styles.lanes} lanes={this.state.lanes}/>
             </div>
         )
     }

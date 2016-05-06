@@ -10,7 +10,7 @@ export default ({lanes, ...props}) => {
     return (
         <div {...props}>
             {lanes.map(lane => {
-                return (<Lane className={styles.col} key={lane.id} lane={lane}/>)
+                return (<Lane className={styles.lane} key={lane.id} lane={lane}/>)
             })}
         </div>
     );
